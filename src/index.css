@@ -113,17 +113,17 @@
   box-shadow: inset 18px 0 28px -10px rgba(60, 30, 10, 0.16), 3px 0 10px rgba(0,0,0,0.06);
 }
 
-/* iOS Glassmorphism Pill for modern iPhone HUD controls */
+/* Clean Book HUD floating controls (Solid, crisp, zero blur artifacts) */
 .ios-glass-pill {
-  backdrop-filter: blur(28px) saturate(190%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
-  border: 1px solid rgba(80, 45, 15, 0.12);
+  background-color: #FDF6E8;
+  border: 1px solid rgba(100, 55, 15, 0.18);
+  box-shadow: 0 10px 25px -4px rgba(60, 30, 10, 0.15), 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .ios-glass-pill-dark {
-  backdrop-filter: blur(28px) saturate(190%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: #1A1715;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.7);
 }
 
 /* Hide scrollbars */

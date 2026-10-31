@@ -92,7 +92,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   const isNight = isDark;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-xs">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/65">
       <div
         className={`w-full max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl border overflow-hidden p-6 transition-all max-h-[88vh] overflow-y-auto ${
           isNight

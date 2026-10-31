@@ -72,15 +72,15 @@ export const ReaderControls: React.FC<ReaderControlsProps> = ({
     ? `~${pagesRemainingInChapter} min al prossimo capitolo` 
     : 'Ultima pagina del capitolo';
 
-  // iPhone Apple Books floating glass pill styling
+  // Crisp floating book controls styling (solid, non-blurry)
   const pillBgClass = isNight
-    ? 'ios-glass-pill-dark bg-[#1A1816]/85 text-[#EFE7DE] shadow-2xl shadow-black/60'
-    : 'ios-glass-pill bg-[#FDF7EA]/90 text-[#322419] shadow-xl shadow-amber-950/10';
+    ? 'ios-glass-pill-dark text-[#EFE7DE]'
+    : 'ios-glass-pill text-[#322419]';
 
   return (
     <div
-      className={`fixed inset-0 pointer-events-none z-40 transition-all duration-300 ease-out ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 pointer-events-none'
+      className={`fixed inset-0 pointer-events-none z-40 transition-all duration-200 ease-out ${
+        visible ? 'opacity-100 translate-y-0 visible' : 'opacity-0 invisible pointer-events-none'
       }`}
     >
       {/* Top iPhone-style Floating Header Pill */}

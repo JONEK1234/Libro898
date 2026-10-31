@@ -43,7 +43,7 @@ export const FullscreenGuideModal: React.FC<FullscreenGuideModalProps> = ({
       role="dialog"
       aria-modal="true"
       aria-label="Modalità senza browser"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 animate-fadeIn"
       onClick={onClose}
     >
       <div
