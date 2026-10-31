@@ -29,6 +29,7 @@ export const BookPage: React.FC<BookPageProps> = ({
     sepia: 'paper-texture-sepia text-[#2A1A0E]',
     linen: 'paper-texture-linen text-[#24170D]',
     night: 'paper-texture-night text-[#E5CFB3]',
+    oled: 'paper-texture-oled text-[#D6C2A8]',
   };
 
   // Font family classes

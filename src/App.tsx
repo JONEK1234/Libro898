@@ -138,6 +138,43 @@ export default function App() {
     }
   }, [settings]);
 
+  // Sync Dark Mode class and mobile status bar theme-color for PWA & browser
+  useEffect(() => {
+    const isDark = settings.theme === 'night' || settings.theme === 'oled';
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    const themeColor = settings.theme === 'oled' 
+      ? '#000000' 
+      : isDark 
+      ? '#14110E' 
+      : (currentPage === 0 ? '#181614' : '#F8E8C8');
+
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+      metaTheme.setAttribute('content', themeColor);
+    }
+  }, [settings.theme, currentPage]);
+
+  // System Dark Mode auto-sync when enabled
+  useEffect(() => {
+    if (settings.autoDarkMode && typeof window !== 'undefined' && window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const handleSystemChange = (e: MediaQueryListEvent | MediaQueryList) => {
+        setSettings((prev) => ({
+          ...prev,
+          theme: e.matches ? 'night' : 'warm-amber',
+        }));
+      };
+      handleSystemChange(mediaQuery);
+      mediaQuery.addEventListener('change', handleSystemChange);
+      return () => mediaQuery.removeEventListener('change', handleSystemChange);
+    }
+  }, [settings.autoDarkMode]);
+
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY_BOOKMARKS, JSON.stringify(bookmarks));
@@ -327,9 +364,22 @@ export default function App() {
     sepia: 'bg-[#F5E5C4]',
     linen: 'bg-[#FAF0D8]',
     night: 'bg-[#14110E]',
+    oled: 'bg-[#000000]',
   };
 
-  const isNight = settings.theme === 'night';
+  const isNight = settings.theme === 'night' || settings.theme === 'oled';
+
+  const handleToggleTheme = () => {
+    setSettings((prev) => {
+      const isDark = prev.theme === 'night' || prev.theme === 'oled';
+      return {
+        ...prev,
+        theme: isDark ? 'warm-amber' : 'night',
+        autoDarkMode: false,
+      };
+    });
+  };
+
   const activePageData = NOVEL_PAGES.find((p) => p.id === currentPage) || NOVEL_PAGES[0];
   const isCurrentBookmarked = bookmarks.some((b) => b.page === currentPage);
 
@@ -357,6 +407,7 @@ export default function App() {
           onOpenSettings={() => setIsSettingsModalOpen(true)}
           onOpenAudio={() => setIsAudioModalOpen(true)}
           onOpenFullscreenGuide={() => setIsBrowserFreeModalOpen(true)}
+          onToggleTheme={handleToggleTheme}
         />
       ) : (
         /* 2. IMMERSIVE READING ROOM: Entire Phone Screen IS the Page */
@@ -385,6 +436,7 @@ export default function App() {
             onToggleFullscreen={handleToggleFullscreen}
             onOpenFullscreenGuide={() => setIsBrowserFreeModalOpen(true)}
             theme={settings.theme}
+            onToggleTheme={handleToggleTheme}
           />
 
           {/* Book Canvas Container: Edge-to-Edge on Mobile Phone */}

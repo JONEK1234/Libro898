@@ -53,10 +53,18 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     { 
       id: 'night', 
       label: 'Notte Calda', 
-      badge: 'Riposo Occhi', 
+      badge: 'Lume di Candela', 
       bg: 'bg-[#151311]', 
       text: 'text-[#E2D1BC]', 
       icon: <Moon className="w-3.5 h-3.5 text-amber-400" /> 
+    },
+    { 
+      id: 'oled', 
+      label: 'Nero Puro OLED', 
+      badge: 'Buio / Risparmio', 
+      bg: 'bg-black', 
+      text: 'text-[#D6C2A8]', 
+      icon: <Moon className="w-3.5 h-3.5 text-stone-300" /> 
     },
   ];
 
@@ -80,7 +88,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     { id: 'relaxed', label: 'Ampio' },
   ];
 
-  const isNight = settings.theme === 'night';
+  const isDark = settings.theme === 'night' || settings.theme === 'oled';
+  const isNight = isDark;
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-xs">
@@ -113,11 +122,74 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         </div>
 
         <div className="space-y-6 text-sm font-sans">
+          {/* Fast Dark Mode / Light Mode Switch */}
+          <div className="p-3.5 rounded-2xl bg-amber-900/5 dark:bg-white/5 border border-amber-900/15 dark:border-white/10 space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold uppercase tracking-wider opacity-80">
+                Modalità di Lettura
+              </span>
+              <span className="text-[11px] opacity-60">
+                {isDark ? 'Tema Scuro Attivo' : 'Tema Chiaro Attivo'}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={() => onUpdateSettings({ theme: 'warm-amber', autoDarkMode: false })}
+                className={`min-h-[46px] p-2.5 rounded-xl border flex items-center justify-center gap-2 transition-all active:scale-95 ${
+                  !isDark
+                    ? 'bg-amber-100 text-stone-900 border-amber-600 font-semibold shadow-xs'
+                    : 'border-transparent opacity-60 hover:opacity-100'
+                }`}
+              >
+                <Sun className="w-4 h-4 text-amber-600" />
+                <span className="text-xs">Chiaro (Giorno)</span>
+              </button>
+
+              <button
+                onClick={() => onUpdateSettings({ theme: 'night', autoDarkMode: false })}
+                className={`min-h-[46px] p-2.5 rounded-xl border flex items-center justify-center gap-2 transition-all active:scale-95 ${
+                  isDark
+                    ? 'bg-stone-900 text-amber-200 border-amber-500 font-semibold shadow-xs'
+                    : 'border-transparent opacity-60 hover:opacity-100'
+                }`}
+              >
+                <Moon className="w-4 h-4 text-amber-300" />
+                <span className="text-xs">Scuro (Notte)</span>
+              </button>
+            </div>
+
+            {/* Auto System Sync */}
+            <div className="pt-2 border-t border-amber-900/10 dark:border-white/10 flex items-center justify-between">
+              <div className="pr-2">
+                <p className="text-xs font-medium">Segui il tema del telefono</p>
+                <p className="text-[10px] opacity-65">Passa a scuro se lo smartphone è in modalità notte</p>
+              </div>
+              <button
+                onClick={() => {
+                  const newAuto = !settings.autoDarkMode;
+                  const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  onUpdateSettings({ 
+                    autoDarkMode: newAuto,
+                    ...(newAuto ? { theme: systemDark ? 'night' : 'warm-amber' } : {})
+                  });
+                }}
+                className={`min-h-[36px] min-w-[50px] px-2.5 py-1 rounded-full text-xs font-semibold transition-colors cursor-pointer ${
+                  settings.autoDarkMode
+                    ? 'bg-amber-600 text-white'
+                    : 'bg-stone-400/20 text-stone-500'
+                }`}
+              >
+                {settings.autoDarkMode ? 'Attivo' : 'No'}
+              </button>
+            </div>
+          </div>
+
           {/* Theme Palette */}
           <div>
             <div className="flex items-center justify-between mb-2">
               <label className="text-xs uppercase tracking-wider font-semibold opacity-75">
-                Calore della Carta
+                Tonalità Carta e Notte
               </label>
               <span className="text-[11px] text-amber-800 dark:text-amber-300 font-medium">
                 0% Luce blu nociva

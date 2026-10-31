@@ -22,7 +22,7 @@ export interface ChapterInfo {
   synopsis: string;
 }
 
-export type ThemeMode = 'warm-amber' | 'candlelight' | 'sepia' | 'linen' | 'night';
+export type ThemeMode = 'warm-amber' | 'candlelight' | 'sepia' | 'linen' | 'night' | 'oled';
 export type FontFamilyOption = 'lora' | 'garamond' | 'sans';
 export type FontSizeOption = 'sm' | 'base' | 'lg' | 'xl' | '2xl';
 export type LineSpacingOption = 'tight' | 'normal' | 'relaxed';
@@ -38,6 +38,7 @@ export interface ReaderSettings {
   soundEnabled: boolean;
   ambientSound: 'none' | 'rain' | 'fire' | 'library';
   ambientVolume: number;
+  autoDarkMode?: boolean;
 }
 
 export interface Bookmark {

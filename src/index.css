@@ -97,6 +97,13 @@
   color: #E5CFB3;
 }
 
+/* Nero Puro OLED (Massimo risparmio batteria e buio totale con testo ambra tenue) */
+.paper-texture-oled {
+  background-color: #000000;
+  color: #D6C2A8;
+}
+
+
 /* Book page inner drop-shadow on desktop spread */
 .book-spine-left {
   box-shadow: inset -18px 0 28px -10px rgba(60, 30, 10, 0.16), -3px 0 10px rgba(0,0,0,0.06);

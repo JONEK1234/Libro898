@@ -11,7 +11,9 @@ import {
   Maximize2,
   Minimize2,
   BookOpen,
-  Smartphone
+  Smartphone,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { BookPageData } from '../types/book';
 
@@ -35,6 +37,7 @@ interface ReaderControlsProps {
   onToggleFullscreen: () => void;
   onOpenFullscreenGuide?: () => void;
   theme: string;
+  onToggleTheme?: () => void;
 }
 
 export const ReaderControls: React.FC<ReaderControlsProps> = ({
@@ -57,8 +60,10 @@ export const ReaderControls: React.FC<ReaderControlsProps> = ({
   onToggleFullscreen,
   onOpenFullscreenGuide,
   theme,
+  onToggleTheme,
 }) => {
-  const isNight = theme === 'night';
+  const isNight = theme === 'night' || theme === 'oled';
+  const isDark = isNight;
   const progressPercent = Math.round((currentPage / totalPages) * 100);
 
   // Remaining pages in chapter
@@ -191,6 +196,22 @@ export const ReaderControls: React.FC<ReaderControlsProps> = ({
             >
               <Volume2 className="w-4 h-4" />
             </button>
+
+            {/* Quick 1-tap Dark Mode / Light Mode toggle */}
+            {onToggleTheme && (
+              <button
+                onClick={onToggleTheme}
+                className={`min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full transition-all active:scale-95 ${
+                  isDark
+                    ? 'bg-amber-400/20 text-amber-300 hover:bg-amber-400/30'
+                    : 'hover:bg-black/5 text-amber-950/80 hover:text-amber-950'
+                }`}
+                title={isDark ? 'Passa alla modalità chiara (Ambra)' : 'Passa alla modalità scura (Notte)'}
+                aria-label={isDark ? 'Modalità chiara' : 'Modalità scura'}
+              >
+                {isDark ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4" />}
+              </button>
+            )}
 
             {/* Apple Books "AA" Typography button */}
             <button

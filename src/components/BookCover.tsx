@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, BookmarkCheck, Clock, AlignLeft, Sparkles, Volume2, Smartphone } from 'lucide-react';
+import { BookOpen, BookmarkCheck, Clock, AlignLeft, Sparkles, Volume2, Smartphone, Moon, Sun } from 'lucide-react';
 import { BOOK_METADATA, CHAPTERS_INFO } from '../data/novelData';
 import { ReaderSettings } from '../types/book';
 
@@ -12,6 +12,7 @@ interface BookCoverProps {
   onOpenSettings: () => void;
   onOpenAudio: () => void;
   onOpenFullscreenGuide?: () => void;
+  onToggleTheme?: () => void;
 }
 
 export const BookCover: React.FC<BookCoverProps> = ({
@@ -20,9 +21,12 @@ export const BookCover: React.FC<BookCoverProps> = ({
   totalBookmarks,
   onOpenTOC,
   settings,
+  onOpenSettings,
   onOpenAudio,
   onOpenFullscreenGuide,
+  onToggleTheme,
 }) => {
+  const isDark = settings.theme === 'night' || settings.theme === 'oled';
   return (
     <div className="relative min-h-screen w-full flex flex-col justify-between overflow-y-auto overflow-x-hidden bg-[#181614] text-[#EFEAE1]">
       {/* Subtle atmospheric vignette */}
@@ -70,6 +74,28 @@ export const BookCover: React.FC<BookCoverProps> = ({
             </span>
           </button>
           
+          {/* Direct Dark Mode / Light Mode toggle */}
+          {onToggleTheme && (
+            <button
+              onClick={onToggleTheme}
+              className="min-h-[44px] min-w-[44px] px-2.5 py-1.5 flex items-center gap-1.5 rounded-lg text-xs font-sans text-amber-200/90 hover:text-white bg-amber-950/40 border border-amber-700/40 hover:border-amber-600/70 transition-colors cursor-pointer"
+              title={isDark ? 'Passa alla modalità chiara (Ambra)' : 'Passa alla modalità scura (Notte)'}
+              aria-label={isDark ? 'Modalità chiara' : 'Modalità scura'}
+            >
+              {isDark ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-amber-200" />}
+              <span className="hidden md:inline">{isDark ? 'Chiaro' : 'Scuro'}</span>
+            </button>
+          )}
+
+          {/* Quick AA Appearance button */}
+          <button
+            onClick={onOpenSettings}
+            className="min-h-[44px] px-2.5 py-1.5 flex items-center gap-1.5 rounded-lg text-xs font-serif font-bold text-amber-200/90 hover:text-white bg-amber-950/40 border border-amber-700/40 hover:border-amber-600/70 transition-colors cursor-pointer"
+            title="Impostazioni testo e calore pagina"
+          >
+            <span>AA</span>
+          </button>
+
           <button
             onClick={onOpenTOC}
             className="min-h-[44px] min-w-[44px] px-3 py-1.5 flex items-center gap-2 rounded-lg text-xs font-sans text-stone-300 hover:text-white border border-stone-800 hover:border-stone-700 transition-colors"
