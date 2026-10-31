@@ -1,0 +1,8 @@
+{
+  "name": "Remix Il Custode dei Giorni Perduti",
+  "description": "Un romanzo digitale immersivo in 50 pagine calibrato per smartphone e desktop con sensazione di libro autentico, pagine tattili e atmosfera letteraria.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

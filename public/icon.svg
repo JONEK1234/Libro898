@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#2D1C10" />
+      <stop offset="70%" stop-color="#18110B" />
+      <stop offset="100%" stop-color="#0E0B07" />
+    </radialGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE7A3" />
+      <stop offset="50%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#996515" />
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E5A65E" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#FFE8B0" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+  <rect width="504" height="504" x="4" y="4" rx="108" fill="none" stroke="url(#goldGrad)" stroke-width="4" opacity="0.6" />
+
+  <!-- Outer Astrolabe Ring -->
+  <circle cx="256" cy="256" r="180" fill="none" stroke="url(#goldGrad)" stroke-width="6" opacity="0.85" />
+  <circle cx="256" cy="256" r="162" fill="none" stroke="url(#goldGrad)" stroke-width="2" stroke-dasharray="6 8" opacity="0.6" />
+
+  <!-- Cardinal Roman Numerals Marks -->
+  <circle cx="256" cy="94" r="5" fill="#FFE7A3" />
+  <circle cx="418" cy="256" r="5" fill="#FFE7A3" />
+  <circle cx="256" cy="418" r="5" fill="#FFE7A3" />
+  <circle cx="94" cy="256" r="5" fill="#FFE7A3" />
+
+  <!-- Open Book Iconography In Center -->
+  <g transform="translate(146, 176) scale(0.86)">
+    <!-- Book Left Page -->
+    <path d="M 128 50 C 70 30, 20 40, 0 60 L 0 200 C 20 180, 70 170, 128 190 Z" fill="url(#goldGrad)" opacity="0.95" />
+    <!-- Book Right Page -->
+    <path d="M 128 50 C 186 30, 236 40, 256 60 L 256 200 C 236 180, 186 170, 128 190 Z" fill="url(#glowGrad)" opacity="0.95" />
+    <!-- Book Spine Rib -->
+    <line x1="128" y1="50" x2="128" y2="190" stroke="#7A4510" stroke-width="4" />
+  </g>
+
+  <!-- Central Clock Hands (Hour & Lost 10-day hand) -->
+  <g transform="translate(256, 256)">
+    <!-- Center Pivot -->
+    <circle cx="0" cy="0" r="10" fill="#FFE7A3" />
+    <circle cx="0" cy="0" r="5" fill="#5A2E05" />
+    <!-- Hour Hand -->
+    <line x1="0" y1="0" x2="-35" y2="-45" stroke="#FFE7A3" stroke-width="5" stroke-linecap="round" />
+    <!-- Lost Hand pointing to the impossible hour -->
+    <line x1="0" y1="0" x2="65" y2="-65" stroke="url(#goldGrad)" stroke-width="4" stroke-linecap="round" />
+    <circle cx="65" cy="-65" r="4" fill="#FFE7A3" />
+  </g>
+</svg>

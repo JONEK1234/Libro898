@@ -1,0 +1,32 @@
+{
+  "id": "/",
+  "name": "Il Custode dei Giorni Perduti",
+  "short_name": "Il Custode",
+  "description": "Un romanzo digitale immersivo in 50 pagine da leggere come un vero libro.",
+  "theme_color": "#F8E8C8",
+  "background_color": "#181614",
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "/",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
