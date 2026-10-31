@@ -93,15 +93,24 @@ export const BookPage: React.FC<BookPageProps> = ({
       }}
     >
       {/* Container inside the full-screen page with calibrated safe margins */}
-      <div className="w-full max-w-2xl mx-auto h-full flex flex-col justify-between px-4 sm:px-9 md:px-12 pt-3 sm:pt-4 pb-2 sm:pb-3">
-        {/* Ribbon Bookmark at top right */}
+      <div 
+        className="w-full max-w-2xl mx-auto h-full flex flex-col justify-between px-4 sm:px-9 md:px-12"
+        style={{
+          paddingTop: 'calc(max(env(safe-area-inset-top, 0px), 44px) + 8px)',
+          paddingBottom: 'calc(max(env(safe-area-inset-bottom, 0px), 8px) + 4px)',
+        }}
+      >
+        {/* Ribbon Bookmark at top right - positioned with safe-area offset so it never clashes with status bar icons */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             onToggleBookmark(page.id);
           }}
           aria-label={isBookmarked ? 'Rimuovi segnalibro' : 'Aggiungi segnalibro'}
-          className="absolute top-0 right-4 sm:right-8 w-6 h-10 flex flex-col items-center justify-start transition-all duration-300 z-20 group focus:outline-none cursor-pointer"
+          className="absolute right-4 sm:right-8 w-6 h-10 flex flex-col items-center justify-start transition-all duration-300 z-20 group focus:outline-none cursor-pointer"
+          style={{
+            top: 'calc(max(env(safe-area-inset-top, 0px), 44px) + 4px)',
+          }}
           title={isBookmarked ? 'Pagina contrassegnata' : 'Metti il segnalibro a questa pagina'}
         >
           <div
@@ -122,12 +131,12 @@ export const BookPage: React.FC<BookPageProps> = ({
           </div>
         </button>
 
-        {/* Top Header: Fixed height, never pushes content */}
-        <header className="h-8 shrink-0 flex items-center justify-between border-b border-amber-900/15 dark:border-white/10 text-[10.5px] sm:text-xs tracking-wider uppercase font-sans opacity-70 select-none">
-          <span className="truncate pr-4 font-medium">
+        {/* Top Header: Fixed height, always clearly visible below the status bar */}
+        <header className="h-9 shrink-0 flex items-center justify-between border-b border-amber-900/20 dark:border-white/15 text-[11px] sm:text-xs tracking-wider uppercase font-sans opacity-85 select-none mb-1">
+          <span className="truncate pr-4 font-semibold text-amber-950 dark:text-amber-100">
             {page.chapterTitle} · {page.chapterSubtitle}
           </span>
-          <span className="shrink-0 font-serif italic normal-case tracking-normal text-xs opacity-85">
+          <span className="shrink-0 font-serif italic normal-case tracking-normal text-xs font-medium text-amber-900/90 dark:text-amber-200/90">
             Pagina {page.id} di 50
           </span>
         </header>
@@ -136,7 +145,7 @@ export const BookPage: React.FC<BookPageProps> = ({
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className="book-scroll-canvas book-scrollbar flex-1 min-h-0 overflow-y-auto overscroll-contain touch-pan-y pt-3 sm:pt-4 pb-20 sm:pb-24 select-text scroll-smooth"
+          className="book-scroll-canvas book-scrollbar flex-1 min-h-0 overflow-y-auto overscroll-contain touch-pan-y pt-2.5 sm:pt-4 pb-14 sm:pb-16 select-text scroll-smooth"
           style={{
             WebkitOverflowScrolling: 'touch',
           }}
@@ -212,16 +221,16 @@ export const BookPage: React.FC<BookPageProps> = ({
           )}
 
           {/* End-of-page Fleuron & Chapter Progress */}
-          <div className="pt-8 pb-4 flex flex-col items-center justify-center opacity-45 select-none pointer-events-none shrink-0">
+          <div className="pt-6 pb-2 flex flex-col items-center justify-center opacity-45 select-none pointer-events-none shrink-0">
             <span className="text-sm font-serif tracking-widest text-amber-900/70 dark:text-amber-200/70">❦</span>
             <span className="text-[10px] font-sans tracking-widest uppercase mt-1 text-stone-500 dark:text-stone-400">
               Fine pagina {page.id} di 50
             </span>
           </div>
 
-          {/* GENEROUS BOTTOM BREATHING ROOM: 220px margin so the last words can be scrolled all the way to center screen */}
+          {/* BALANCED BOTTOM BREATHING ROOM: gives comfortable clearance past the last words without excessive empty space */}
           <div
-            className="w-full h-48 sm:h-56 shrink-0 pointer-events-none select-none"
+            className="w-full h-16 sm:h-20 shrink-0 pointer-events-none select-none"
             aria-hidden="true"
           />
         </div>

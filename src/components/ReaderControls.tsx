@@ -79,7 +79,12 @@ export const ReaderControls: React.FC<ReaderControlsProps> = ({
       }`}
     >
       {/* Top iPhone-style Floating Header Pill */}
-      <div className="absolute top-3 sm:top-5 left-0 right-0 px-3 sm:px-6 flex justify-center pointer-events-none">
+      <div 
+        className="absolute left-0 right-0 px-3 sm:px-6 flex justify-center pointer-events-none"
+        style={{
+          top: 'calc(max(env(safe-area-inset-top, 0px), 44px) + 4px)',
+        }}
+      >
         <header
           className={`pointer-events-auto w-full max-w-3xl px-3 sm:px-5 py-2.5 rounded-full flex items-center justify-between transition-transform ${pillBgClass}`}
         >
@@ -200,7 +205,13 @@ export const ReaderControls: React.FC<ReaderControlsProps> = ({
       </div>
 
       {/* Bottom iPhone-style Floating Scrubber Pill */}
-      <div className="absolute bottom-3 sm:bottom-6 left-0 right-0 px-3 sm:px-6 flex justify-center pointer-events-none">
+      <div 
+        className="absolute left-0 right-0 px-3 sm:px-6 flex justify-center pointer-events-none"
+        style={{
+          paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 12px)',
+          bottom: 'max(env(safe-area-inset-bottom, 0px), 12px)',
+        }}
+      >
         <footer
           className={`pointer-events-auto w-full max-w-xl px-4 sm:px-6 py-3 rounded-2xl flex flex-col gap-2 transition-transform ${pillBgClass}`}
         >

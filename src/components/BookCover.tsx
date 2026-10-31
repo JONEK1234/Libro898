@@ -31,7 +31,12 @@ export const BookCover: React.FC<BookCoverProps> = ({
       />
 
       {/* Top minimal header bar */}
-      <header className="relative z-10 w-full max-w-5xl mx-auto px-6 py-6 flex items-center justify-between border-b border-amber-950/40">
+      <header 
+        className="relative z-10 w-full max-w-5xl mx-auto px-6 pb-4 flex items-center justify-between border-b border-amber-950/40"
+        style={{
+          paddingTop: 'calc(max(env(safe-area-inset-top, 0px), 20px) + 12px)',
+        }}
+      >
         <div className="flex items-center gap-3">
           <span className="font-display tracking-widest text-xs uppercase text-amber-300/80">
             Biblioteca d'Autore · Edizione Integrale
